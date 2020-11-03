@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/models/task.dart';
 import 'package:intl/intl.dart';
 
-class Home extends StatefulWidget {
-  Home({Key key, this.title}) : super(key: key);
+class TaskList extends StatefulWidget {
+  TaskList({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _HomeState createState() => _HomeState();
+  _TaskListState createState() => _TaskListState();
 }
 
-class _HomeState extends State<Home> {
-
+class _TaskListState extends State<TaskList> {
   List<Task> taskList = List<Task>();
 
   TextEditingController controller = TextEditingController();
@@ -25,9 +24,10 @@ class _HomeState extends State<Home> {
     });
     controller.clear();
   }
+
   void setDone(Task task) {
     setState(() {
-      task.done? task.turnUndone() : task.turnDone();
+      task.done ? task.turnUndone() : task.turnDone();
     });
   }
 
@@ -64,9 +64,9 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           IconButton(
             icon: Icon(
-              task.done? Icons.check_box : Icons.check_box_outline_blank,
+              task.done ? Icons.check_box : Icons.check_box_outline_blank,
               size: 64.0,
-              color: task.done? Colors.teal : Colors.black54,
+              color: task.done ? Colors.blue : Colors.black54,
             ),
             padding: EdgeInsets.only(left: 10, right: 40.0, bottom: 40),
             onPressed: () => setDone(task),
@@ -77,9 +77,11 @@ class _HomeState extends State<Home> {
               Text(
                 '${task.name}',
                 style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    decoration: task.done? TextDecoration.lineThrough : TextDecoration.none,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  decoration: task.done
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
                 ),
               ),
               Text(
@@ -103,21 +105,22 @@ class _HomeState extends State<Home> {
           child: TextField(
             onSubmitted: (value) => addTask(value),
             style: TextStyle(
-            fontSize: 18,
+              fontSize: 18,
             ),
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(color: Colors.blue, width: 1),
+                ),
+                hintText: 'What do you need to do?'),
             controller: controller,
           ),
         ),
         Expanded(
-            child: ListView.separated(
+          child: ListView.builder(
             itemCount: taskList.length,
             itemBuilder: (context, index) => item(taskList[index]),
-              separatorBuilder: (context, index) => Divider(
-                indent: 20,
-                endIndent: 20,
-                color: Colors.black45,
-              ),
-            )
+          ),
         ),
       ],
     );
@@ -127,7 +130,19 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Task List'),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black87,
+            ),
+            onPressed: () {},
+          ),
+          title: Text(
+            'Task List',
+            style: TextStyle(
+              color: Colors.black87,
+            ),
+          ),
         ),
         body: content());
   }
