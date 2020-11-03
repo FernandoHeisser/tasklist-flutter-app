@@ -2,7 +2,7 @@
 
 A simple todo list developed using Flutter.
 
-![Screenshot](https://gitlab.com/FernandoHeisser/tasklist-flutter-app/-/raw/master/Screenshot.png=500x300)
+![Screenshot](https://gitlab.com/FernandoHeisser/tasklist-flutter-app/-/raw/master/Screenshot.png)
 
 ## Getting Started
 
