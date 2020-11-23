@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello_world/screens/home.dart';
 import 'package:hello_world/screens/task_list.dart';
 
 class App extends StatelessWidget {
@@ -23,7 +24,10 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: theme(),
       initialRoute: '/',
-      routes: {'/': (context) => TaskList()},
+      routes: {
+        '/': (context) => Home(),
+        '/tasklist': (context) => TaskList(),
+      },
     );
   }
 }
